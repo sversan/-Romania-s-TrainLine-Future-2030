@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Train Stations Tracker</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+
+        body {
+
+            background: linear-gradient(to right, red, blue);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+ 
+
+<div class="container mt-5">
+
+    <h2 class="text-center">Train Stations Tracker</h2>
+
+ 
+
+    <!-- Form to Add a New Station -->
+
+    <form action="/add_station" method="post" class="mb-4 p-3 bg-white shadow-sm rounded">
+
+        <h4>Add Train Station</h4>
+
+        <div class="mb-2">
+
+            <label for="name" class="form-label">Station Name</label>
+
+            <input type="text" class="form-control" id="name" name="name" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="budget" class="form-label">Budget (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="budget" name="budget" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="status_cost" class="form-label">Status Cost (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="status_cost" name="status_cost" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="saved_money" class="form-label">Saved Money (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="saved_money" name="saved_money" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Station</button>
+
+    </form>
+
+ 
+
+    <!-- List of Train Stations -->
+
+    <div class="list-group">
+
+        {% for station in stations %}
+
+        <div class="list-group-item d-flex justify-content-between align-items-center bg-white shadow-sm rounded p-3 mb-2">
+
+            <div>
+
+                <h5 class="mb-1">{{ station.name }}</h5>
+
+                <p class="mb-1">Budget: €{{ station.budget }} | Status Cost: €{{ station.status_cost }} | Saved Money: €{{ station.saved_money }} | Additional Needed: €{{ station.additional_needed }}</p>
+
+                <p class="mb-1"><strong>Progress:</strong> {{ station.progress }}</p>
+
+            </div>
+
+            <div>
+
+                <form action="/remove_station" method="post" class="d-inline">
+
+                    <input type="hidden" name="station_id" value="{{ station.id }}">
+
+                    <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+ 
+
+    <!-- Forms to Update Budget, Cost, and Saved Money -->
+
+    <form action="/update_budget" method="post" class="mt-4 p-3 bg-white shadow-sm rounded">
+
+        <h4>Update Budget</h4>
+
+        <div class="mb-2">
+
+            <label for="station_id" class="form-label">Station ID</label>
+
+            <input type="number" class="form-control" id="station_id" name="station_id" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="additional_budget" class="form-label">Additional Budget (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="additional_budget" name="additional_budget" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Budget</button>
+
+    </form>
+
+ 
+
+    <form action="/update_status_cost" method="post" class="mt-4 p-3 bg-white shadow-sm rounded">
+
+        <h4>Update Status Cost</h4>
+
+        <div class="mb-2">
+
+            <label for="station_id_cost" class="form-label">Station ID</label>
+
+            <input type="number" class="form-control" id="station_id_cost" name="station_id" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="additional_cost" class="form-label">Additional Cost (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="additional_cost" name="additional_cost" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-warning">Update Cost</button>
+
+    </form>
+
+ 
+
+    <form action="/add_saved_money" method="post" class="mt-4 p-3 bg-white shadow-sm rounded">
+
+        <h4>Add Saved Money</h4>
+
+        <div class="mb-2">
+
+            <label for="station_id_saved" class="form-label">Station ID</label>
+
+            <input type="number" class="form-control" id="station_id_saved" name="station_id" required>
+
+        </div>
+
+        <div class="mb-2">
+
+            <label for="additional_savings" class="form-label">Additional Savings (EUR)</label>
+
+            <input type="number" step="0.01" class="form-control" id="additional_savings" name="additional_savings" required>
+
+        </div>
+
+        <button type="submit" class="btn btn-info">Add Savings</button>
+
+    </form>
+
+ 
+
+</div>
+
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+
